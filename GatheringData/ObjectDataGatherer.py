@@ -1,15 +1,17 @@
 from PIL import ImageGrab
 import time
+from Utilities import utilities
 
-image_count = 100
-start = time.time()
-print(start)
-for image_index in range(image_count):
-    image = ImageGrab.grab()
-    image.save('data/img' + str(image_index) + '.png')
-    image.close()
-end = time.time()
-print("Started at: " + str(start))
-print("Ended at: " + str(end))
-print("Process took: " + str(end - start) + " seconds")
-print("Captured " + str(image_count / (end - start)) + " per second.")
+
+def gather_dataset(dataset_name: str, number_of_images: int, object_height_px: int, object_width_px: int,
+                   image_capture_delay: float, update_function):
+    print("Starting")
+    directory_path = f'./data/{dataset_name}'
+    directory_path = utilities.create_directory(directory_path)
+    for image_index in range(number_of_images):
+        start = time.time()
+        while start + image_capture_delay > time.time():
+            pass
+        image = ImageGrab.grab()
+        image.save(f'{directory_path}/{image_index}.png')
+        update_function(f'{directory_path}/{image_index}.png')
