@@ -1,7 +1,7 @@
 from Views import MainView
 import threading
-from functools import partial
-from Models import ObjectDataGatherer
+from Models.DataCollection import ObjectDataGatherer
+
 
 class CollectController:
     def __init__(self, main_view: MainView):
