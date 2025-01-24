@@ -45,7 +45,7 @@ class CollectController:
             args=(
                 self.entry_dataset_name.get(),
                 int(self.entry_number_of_images.get()),
-                int(self.entry_image_capture_delay.get()),
+                float(self.entry_image_capture_delay.get()),
                 self.image_gathered_callback),
             daemon=True
         ).start()
