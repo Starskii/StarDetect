@@ -1,4 +1,6 @@
 import os
+
+
 def create_directory(directory_path: str) -> str:
     directory_path_index = 0
     directory_name = directory_path
@@ -7,3 +9,7 @@ def create_directory(directory_path: str) -> str:
         directory_name = directory_path + str(directory_path_index)
     os.makedirs(directory_name)
     return directory_name
+
+
+def get_captured_datasets(directory_path: str):
+    return os.listdir(directory_path)

@@ -52,6 +52,27 @@ class MainView:
         if value >= 100:
             progress_bar_identifier.grid_forget()
 
+    def add_dropdown_to_tab(self,
+                            tab_identifier: ttk.Frame,
+                            options: [str],
+                            option_selected_callback: Callable,
+                            label_text: str = None,
+                            button_handler_function: Callable = None) -> ttk.Combobox:
+        column_counter = 0
+
+        if label_text is not None:
+            new_label = tk.Label(tab_identifier, text=f'{label_text}')
+            new_label.grid(row=self.tab_row_counter[tab_identifier], column=column_counter, padx=10, pady=5)
+            column_counter += 1
+
+        new_dropdown = ttk.Combobox(tab_identifier, values=options, state="readonly",
+                                    postcommand=button_handler_function)
+        new_dropdown.bind("<<ComboboxSelected>>", option_selected_callback)
+        new_dropdown.grid(row=self.tab_row_counter[tab_identifier], column=column_counter, padx=10, pady=5)
+        column_counter += 1
+
+        self.tab_row_counter[tab_identifier] += 1
+        return new_dropdown
 
     def start(self):
         self.root.mainloop()
@@ -64,7 +85,6 @@ def disable_button(button_identifier: tk.Button):
 def enable_button(button_identifier: tk.Button):
     button_identifier.config(state="active")
 
+
 def remove_element(element_identifier: any):
     element_identifier.grid_forget()
-
-
