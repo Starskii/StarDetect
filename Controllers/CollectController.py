@@ -1,11 +1,13 @@
 from Views import MainView
+from Models.ProfileManager import ProfileManager
 import threading
 from Models.DataCollection import ObjectDataGatherer
 from Models.Annotation.Annotator import Annotator
 
 
 class CollectController:
-    def __init__(self, main_view: MainView):
+    def __init__(self, main_view: MainView, profile_manager: ProfileManager):
+        self.profile_manager = ProfileManager()
         self.main_view = main_view
         self.collect_tab = main_view.create_new_tab("Collect")
         self.entry_dataset_name = main_view.add_input_to_tab(self.collect_tab, "Dataset name:")

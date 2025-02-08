@@ -57,7 +57,9 @@ class MainView:
                             options: [str],
                             option_selected_callback: Callable,
                             label_text: str = None,
-                            button_handler_function: Callable = None) -> ttk.Combobox:
+                            dropdown_event_callback: Callable = None,
+                            button_text: [str] = None,
+                            button_event_handler: [Callable] = None) -> ttk.Combobox:
         column_counter = 0
 
         if label_text is not None:
@@ -66,10 +68,16 @@ class MainView:
             column_counter += 1
 
         new_dropdown = ttk.Combobox(tab_identifier, values=options, state="readonly",
-                                    postcommand=button_handler_function)
+                                    postcommand=dropdown_event_callback)
         new_dropdown.bind("<<ComboboxSelected>>", option_selected_callback)
         new_dropdown.grid(row=self.tab_row_counter[tab_identifier], column=column_counter, padx=10, pady=5)
         column_counter += 1
+        if button_text is not None:
+            if len(button_text) > 0:
+                for index in range(len(button_text)):
+                    new_button = tk.Button(tab_identifier, text=f'{button_text[index]}', command=button_event_handler[index])
+                    new_button.grid(row=self.tab_row_counter[tab_identifier], column=column_counter, padx=10, pady=5)
+                    column_counter += 1
 
         self.tab_row_counter[tab_identifier] += 1
         return new_dropdown

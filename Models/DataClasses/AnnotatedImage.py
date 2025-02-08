@@ -1,5 +1,6 @@
 import dataclasses
-from Annotation import Annotation
+from Models.DataClasses.Annotation import Annotation
+from typing import List
 import json
 
 
@@ -8,4 +9,4 @@ class AnnotatedImage:
     path: str
     image_width_px: int
     image_height_px: int
-    annotations: [Annotation]
+    annotations: List[Annotation]

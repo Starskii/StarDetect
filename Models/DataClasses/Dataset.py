@@ -1,5 +1,6 @@
 import dataclasses
-from AnnotatedImage import AnnotatedImage
+from Models.DataClasses.AnnotatedImage import AnnotatedImage
+from typing import List
 import json
 
 
@@ -7,4 +8,4 @@ import json
 @dataclasses.dataclass
 class Dataset:
     dataset_name: str
-    annotated_images: [AnnotatedImage]
+    annotated_images: List[AnnotatedImage]
