@@ -19,17 +19,19 @@ class HomeController:
             ["New Profile", "Delete Profile"],
             [self.create_new_profile_event, self.delete_profile_event])
 
-
     def delete_profile_event(self):
         self.profile_manager.delete_active_profile()
         self.profile_combobox.set('')
+
     def update_profile_options(self):
         self.annotator.update_dataset_options()
         if self.dataset_combobox is not None:
             self.dataset_combobox.config(values=self.annotator.dataset_options)
 
     def create_new_profile_event(self):
-        profile_name = simpledialog.askstring(title="New Profile", prompt="Enter profile name:")
+        profile_name = simpledialog.askstring(title="New Profile", prompt="Enter profile name:\t\t\n")
+        if len(profile_name) < 1:
+            return
         self.profile_manager.create_new_profile(profile_name)
 
     def retrieve_profiles_event(self):
