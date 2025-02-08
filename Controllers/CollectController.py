@@ -7,7 +7,7 @@ from Models.Annotation.Annotator import Annotator
 
 class CollectController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
-        self.profile_manager = ProfileManager()
+        self.profile_manager = profile_manager
         self.main_view = main_view
         self.collect_tab = main_view.create_new_tab("Collect")
         self.entry_dataset_name = main_view.add_input_to_tab(self.collect_tab, "Dataset name:")
@@ -49,6 +49,7 @@ class CollectController:
                 self.entry_dataset_name.get(),
                 int(self.entry_number_of_images.get()),
                 float(self.entry_image_capture_delay.get()),
-                self.image_gathered_callback),
+                self.image_gathered_callback,
+                self.profile_manager),
             daemon=True
         ).start()

@@ -7,7 +7,7 @@ from Models.Annotation.Annotator import Annotator
 
 class AnnotateController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
-        self.profile_manager = ProfileManager()
+        self.profile_manager = profile_manager
         self.annotator = Annotator()
         self.annotate_tab = main_view.create_new_tab("Annotate")
         self.main_view = main_view

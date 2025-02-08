@@ -7,7 +7,7 @@ from functools import partial
 
 class HomeController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
-        self.profile_manager = ProfileManager()
+        self.profile_manager = profile_manager
         self.home_tab = main_view.create_new_tab("Home")
         self.main_view = main_view
         self.profile_combobox = self.main_view.add_dropdown_to_tab(
