@@ -1,12 +1,13 @@
 from Models.DataClasses.Profile import Profile
 from dacite import from_dict
 from dataclasses import asdict
+from Models.DataClasses.Dataset import Dataset
 import os
 import json
 
 class ProfileManager:
     def __init__(self):
-        self.active_profile = None
+        self.active_profile: Profile = None
         self.profiles = []
 
     def update_profiles(self):
@@ -40,3 +41,10 @@ class ProfileManager:
         if self.active_profile in self.profiles:
             self.profiles.remove(self.active_profile)
             self.profile_change_event_handler()
+
+    def create_image_collection(self, collection_name: str) -> Dataset:
+        dataset = Dataset(collection_name, [])
+        self.active_profile.dataset_list.append(dataset)
+        self.profile_change_event_handler()
+        return dataset
+
