@@ -2,7 +2,6 @@ from Views import MainView
 from Models.ProfileManager import ProfileManager
 import threading
 from Models.DataCollection import ObjectDataGatherer
-from Models.Annotation.Annotator import Annotator
 
 
 class CollectController:

@@ -3,12 +3,14 @@ from dacite import from_dict
 from dataclasses import asdict
 from Models.DataClasses.Dataset import Dataset
 import os
+from typing import Optional
 import json
 
 class ProfileManager:
     def __init__(self):
         self.active_profile: Profile = None
         self.profiles = []
+        self.selected_dataset: Optional[Dataset] = None
 
     def update_profiles(self):
         updated_profiles = self.get_profiles()
@@ -47,4 +49,24 @@ class ProfileManager:
         self.active_profile.dataset_list.append(dataset)
         self.profile_change_event_handler()
         return dataset
+
+    def get_dataset_option_strings(self) -> [str]:
+        dataset_list = []
+        if self.active_profile is None:
+            return dataset_list
+        for dataset in self.active_profile.dataset_list:
+            dataset_list.append(dataset.dataset_name)
+        return dataset_list
+
+    def update_selected_dataset(self, dataset_name: str):
+        for dataset in self.active_profile.dataset_list:
+            if dataset.dataset_name == dataset_name:
+                self.selected_dataset = dataset
+
+    def get_class_option_strings(self) -> str:
+        class_list = []
+        if self.active_profile is None:
+            return class_list
+        for classification in self.active_profile.class_list:
+            class_list.append(classification.classification_name)
 
