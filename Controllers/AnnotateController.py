@@ -4,7 +4,7 @@ from Views import MainView
 from Models.ProfileManager import ProfileManager
 import threading
 from functools import partial
-
+from Models.DataClasses.Classification import Classification
 
 class AnnotateController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
@@ -49,10 +49,11 @@ class AnnotateController:
         pass
 
     def create_new_class_event(self):
-        profile_name = simpledialog.askstring(title="New Class", prompt="Enter class name:\t\t\n")
+        class_name = simpledialog.askstring(title="New Class", prompt="Enter class name:\t\t\n")
         color = colorchooser.askcolor(title="Choose Color for class:\t\t\n")
         id = len(self.profile_manager.active_profile.class_list)
-        # TODO Finish creation of data object for new class.
+        new_class = Classification(class_name, id, color[0])
+        # TODO Add class to JSON structure through profile_manager
 
 
     def update_class_options(self):
