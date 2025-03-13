@@ -18,7 +18,7 @@ class ProfileManager:
 
     def get_profiles(self) -> [Profile]:
         updated_profiles = []
-        with open('../PersistedData/profiles.json', 'r') as profiles_file:
+        with open('./PersistedData/profiles.json', 'r') as profiles_file:
             profiles_dict = json.load(profiles_file)
             for profile in profiles_dict:
                 updated_profiles.append(from_dict(Profile, profile))
@@ -35,7 +35,7 @@ class ProfileManager:
         self.profile_change_event_handler()
 
     def profile_change_event_handler(self):
-        with open('../PersistedData/profiles.json', 'w') as profiles_file:
+        with open('./PersistedData/profiles.json', 'w') as profiles_file:
             profiles_dict = [asdict(profile) for profile in self.profiles]
             json.dump(profiles_dict, profiles_file, indent=4)
 

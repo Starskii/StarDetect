@@ -1,0 +1,7 @@
+.venv
+Conrollers/__pycache__
+Models/__pycache__
+Models/DataClasses/__pycache__
+Models/DataCollection/__pycache__
+PersistedData/profiles
+Utilities/__pycache__

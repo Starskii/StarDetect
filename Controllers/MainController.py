@@ -1,17 +1,17 @@
-from Views import MainView
-from HomeController import HomeController
-from CollectController import CollectController
-from AnnotateController import AnnotateController
-from TrainController import TrainController
-from InferenceController import InferenceController
+from Controllers.HomeController import HomeController
+from Controllers.CollectController import CollectController
+from Controllers.AnnotateController import AnnotateController
+from Controllers.TrainController import TrainController
+from Controllers.InferenceController import InferenceController
 from Models.ProfileManager import ProfileManager
+from Views.MainView import MainView
 
 class MainController:
     def __init__(self):
         # Initialize ProfileManager to manage data to and from disk
         self.profile_manager = ProfileManager()
         # Initialize View
-        self.main_view = MainView.MainView("StarDetect", 480, 270)
+        self.main_view = MainView("StarDetect", 480, 270)
 
         # Initialize controllers
         self.home_controller = HomeController(self.main_view, self.profile_manager)
@@ -22,6 +22,3 @@ class MainController:
 
         # Start UI
         self.main_view.start()
-
-
-main_controller = MainController()
