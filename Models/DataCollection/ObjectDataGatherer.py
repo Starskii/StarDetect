@@ -19,5 +19,10 @@ def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay
         image.save(f'{directory_path}/{image_index}.png')
         update_function(f'{directory_path}/{image_index}.png')
         # Create image JSON object and store it in the correct spot in the current_active_profile
+        """
+        TODO: This should probably be done in the profile manager somehow. Also, the saving of data could be
+        optimized some way by either batching these together at the end or by using some producer consumer type 
+        architecture so taking new images is not delayed by io processes.  
+        """
         dataset.annotated_images.append(AnnotatedImage(f'{directory_path}/{image_index}', image.width, image.height, []))
     profile_manager.profile_change_event_handler()
