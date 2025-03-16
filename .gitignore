@@ -5,3 +5,4 @@ Models/DataClasses/__pycache__/*
 Models/DataCollection/__pycache__/*
 PersistedData/profiles.py
 Utilities/__pycache__/*
+Views/__pycache__/*
