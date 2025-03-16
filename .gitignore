@@ -1,5 +1,5 @@
 .venv
-Conrollers/__pycache__/*
+Controllers/__pycache__/*
 Models/__pycache__/*
 Models/DataClasses/__pycache__/*
 Models/DataCollection/__pycache__/*
