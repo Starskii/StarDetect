@@ -9,6 +9,3 @@ class Annotation:
     center_y: float
     width: float
     height: float
-
-# annotation = Annotation(0, .5, .5, .1, .1)
-# print(json.dumps(dataclasses.asdict(annotation), indent=4))
