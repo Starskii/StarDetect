@@ -68,15 +68,15 @@ class ProfileManager:
             dataset_list.append(dataset.dataset_name)
         return dataset_list
 
+    def get_class_option_strings(self) -> [str]:
+        class_name_list = []
+        if self.active_profile is None:
+            return class_name_list
+        for classification in self.active_profile.class_list:
+            class_name_list.append(classification.classification_name)
+        return class_name_list
+
     def update_selected_dataset(self, dataset_name: str):
         for dataset in self.active_profile.dataset_list:
             if dataset.dataset_name == dataset_name:
                 self.selected_dataset = dataset
-
-    def get_class_option_strings(self) -> str:
-        class_list = []
-        if self.active_profile is None:
-            return class_list
-        for classification in self.active_profile.class_list:
-            class_list.append(classification.classification_name)
-

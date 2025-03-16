@@ -37,11 +37,6 @@ class AnnotateController:
             ["Previous Image", "Next Image"],
             [self.dummy, self.dummy])
 
-    def update_dataset_options(self):
-        options = self.profile_manager.get_dataset_option_strings()
-        if self.dataset_combobox is not None:
-            self.dataset_combobox.config(values=options)
-
     def dataset_selected_event(self, event):
         self.profile_manager.update_selected_dataset(str(self.dataset_combobox.get()))
 
@@ -50,19 +45,22 @@ class AnnotateController:
 
     def create_new_class_event(self):
         class_name = simpledialog.askstring(title="New Class", prompt="Enter class name:\t\t\n")
-        class_color = colorchooser.askcolor(title="Choose Color for class:\t\t\n")
         class_id = len(self.profile_manager.active_profile.class_list)
-
-        new_class = self.profile_manager.create_new_classification(
+        class_color = colorchooser.askcolor(title="Choose Color for class:\t\t\n")
+        self.profile_manager.create_new_classification(
             class_name,
             class_id,
             class_color[1])
-
 
     def update_class_options(self):
         options = self.profile_manager.get_class_option_strings()
         if self.class_combobox is not None:
             self.class_combobox.config(values=options)
+
+    def update_dataset_options(self):
+        options = self.profile_manager.get_dataset_option_strings()
+        if self.dataset_combobox is not None:
+            self.dataset_combobox.config(values=options)
 
 
     def dummy(self):

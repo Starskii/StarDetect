@@ -78,7 +78,23 @@
                         "annotations": []
                     }
                 ]
+            },
+            {
+                "dataset_name": "a2 ",
+                "annotated_images": [
+                    {
+                        "path": "../PersistedData/ImageSets/example/a2 /0",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    }
+                ]
             }
         ]
+    },
+    {
+        "profile_name": "example2",
+        "class_list": [],
+        "dataset_list": []
     }
 ]
