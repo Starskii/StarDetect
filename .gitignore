@@ -7,3 +7,4 @@ PersistedData/profiles.py
 Utilities/__pycache__/*
 Views/__pycache__/*
 .idea/*
+PersistedData/ImageSets/*

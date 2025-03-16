@@ -14,14 +14,14 @@ class AnnotateController:
 
         self.dataset_combobox = self.main_view.add_dropdown_to_tab(
             self.annotate_tab,
-            self.profile_manager.get_dataset_option_strings(),
+            self.update_dataset_options,
             self.dataset_selected_event,
             "Dataset Options:",
             self.update_dataset_options)
 
         self.class_combobox = self.main_view.add_dropdown_to_tab(
             self.annotate_tab,
-            [],
+            self.update_class_options,
             self.class_selected_event,
             "Class Options:",
             self.update_class_options,
@@ -30,17 +30,26 @@ class AnnotateController:
 
         self.image_combobox = self.main_view.add_dropdown_to_tab(
             self.annotate_tab,
-            [],
-            self.dummy,
+            self.update_image_options,
+            self.image_selected_event,
             "Image Options:",
-            self.dummy,
+            self.update_image_options,
             ["Previous Image", "Next Image"],
-            [self.dummy, self.dummy])
+            [self.prev_image_event, self.next_image_event])
 
     def dataset_selected_event(self, event):
         self.profile_manager.update_selected_dataset(str(self.dataset_combobox.get()))
 
     def class_selected_event(self, event):
+        pass
+
+    def image_selected_event(self, event):
+        pass
+
+    def next_image_event(self, event):
+        pass
+
+    def prev_image_event(self, event):
         pass
 
     def create_new_class_event(self):
@@ -62,6 +71,7 @@ class AnnotateController:
         if self.dataset_combobox is not None:
             self.dataset_combobox.config(values=options)
 
-
-    def dummy(self):
-        print("dummy")
+    def update_image_options(self):
+        options = self.profile_manager.get_image_option_strings()
+        if self.image_combobox is not None:
+            self.image_combobox.config(values=options)

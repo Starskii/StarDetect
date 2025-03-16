@@ -76,6 +76,14 @@ class ProfileManager:
             class_name_list.append(classification.classification_name)
         return class_name_list
 
+    def get_image_option_strings(self) -> [str]:
+        image_name_list = []
+        if self.active_profile is None:
+            return image_name_list
+        for image in self.selected_dataset.annotated_images:
+            image_name_list.append(image.path.split("/")[-1])
+        return image_name_list
+
     def update_selected_dataset(self, dataset_name: str):
         for dataset in self.active_profile.dataset_list:
             if dataset.dataset_name == dataset_name:
