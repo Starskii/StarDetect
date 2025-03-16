@@ -7,7 +7,7 @@ from Models.ProfileManager import ProfileManager
 
 
 def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay: float, update_function, profile_manager: ProfileManager):
-    directory_path = f'../PersistedData/ImageSets/{profile_manager.active_profile.profile_name}/{dataset_name}'
+    directory_path = f'./PersistedData/ImageSets/{profile_manager.active_profile.profile_name}/{dataset_name}'
     directory_path = utilities.create_directory(directory_path)
     dataset_name = directory_path.split('/')[-1]
     dataset = profile_manager.create_image_collection(dataset_name)
