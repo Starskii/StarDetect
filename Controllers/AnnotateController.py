@@ -50,10 +50,13 @@ class AnnotateController:
 
     def create_new_class_event(self):
         class_name = simpledialog.askstring(title="New Class", prompt="Enter class name:\t\t\n")
-        color = colorchooser.askcolor(title="Choose Color for class:\t\t\n")
-        id = len(self.profile_manager.active_profile.class_list)
-        new_class = Classification(class_name, id, color[0])
-        # TODO Add class to JSON structure through profile_manager
+        class_color = colorchooser.askcolor(title="Choose Color for class:\t\t\n")
+        class_id = len(self.profile_manager.active_profile.class_list)
+
+        new_class = self.profile_manager.create_new_classification(
+            class_name,
+            class_id,
+            class_color[1])
 
 
     def update_class_options(self):
