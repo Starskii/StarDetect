@@ -18,7 +18,7 @@ class CollectController:
         self.image_capture_count = 0
         self.image_capture_total = 0
 
-    def image_gathered_callback(self, image_path: str):
+    def image_gathered_callback(self):
         self.image_capture_count += 1
         self.main_view.update_progress_bar(self.progress_bar, self.image_capture_count / self.image_capture_total * 100)
         if self.image_capture_total == self.image_capture_count:

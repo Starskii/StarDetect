@@ -23,11 +23,6 @@ class HomeController:
         self.profile_manager.delete_active_profile()
         self.profile_combobox.set('')
 
-    def update_profile_options(self):
-        self.annotator.update_dataset_options()
-        if self.dataset_combobox is not None:
-            self.dataset_combobox.config(values=self.annotator.dataset_options)
-
     def create_new_profile_event(self):
         profile_name = simpledialog.askstring(title="New Profile", prompt="Enter profile name:\t\t\n")
         if len(profile_name) < 1:
@@ -44,3 +39,8 @@ class HomeController:
 
     def profile_selected_event(self, event):
         self.profile_manager.set_active_profile(self.profile_combobox.current())
+
+    def update_profile_options(self):
+        self.annotator.update_dataset_options()
+        if self.dataset_combobox is not None:
+            self.dataset_combobox.config(values=self.annotator.dataset_options)

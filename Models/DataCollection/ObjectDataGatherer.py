@@ -17,7 +17,7 @@ def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay
             pass
         image = ImageGrab.grab()
         image.save(f'{directory_path}/{image_index}.png')
-        update_function(f'{directory_path}/{image_index}.png')
+        update_function()
         # Create image JSON object and store it in the correct spot in the current_active_profile
         """
         TODO: This should probably be done in the profile manager somehow. Also, the saving of data could be

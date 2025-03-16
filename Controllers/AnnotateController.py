@@ -52,6 +52,15 @@ class AnnotateController:
     def prev_image_event(self, event):
         pass
 
+    def clear_dataset_combobox(self):
+        self.dataset_combobox.set("")
+
+    def clear_class_combobox(self):
+        self.class_combobox.set("")
+
+    def clear_image_combobox(self):
+        self.image_combobox.set("")
+
     def create_new_class_event(self):
         class_name = simpledialog.askstring(title="New Class", prompt="Enter class name:\t\t\n")
         class_id = len(self.profile_manager.active_profile.class_list)
