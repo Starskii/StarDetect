@@ -40,7 +40,15 @@ class AnnotateController:
             ["Previous Image", "Next Image"],
             [self.prev_image_event, self.next_image_event])
 
-        self.canvas = self.main_view.add_canvas_to_tab(self.annotate_tab)
+        self.canvas = self.main_view.add_canvas_to_tab(self.annotate_tab, self.canvas_clicked_event)
+
+        self.cancel_button = self.main_view.add_button_to_tab(self.annotate_tab, 
+                                                              "Cancel", 
+                                                              self.cancel_action_event)
+        
+        self.undo_button = self.main_view.add_button_to_tab(self.annotate_tab, 
+                                                              "Undo", 
+                                                              self.undo_action_event)
 
         # Add signal listeners
         # Profile Changed
@@ -118,6 +126,12 @@ class AnnotateController:
             class_name,
             class_id,
             class_color[1])
+        
+    def cancel_action_event(self):
+        print("cancel")
+
+    def undo_action_event(self):
+        print("undo")
 
     def update_class_options(self):
         options = self.profile_manager.get_class_option_strings()
@@ -157,6 +171,7 @@ class AnnotateController:
     def signal_dataset_changed(self):
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.DATASET_CHANGED)
 
-
+    def canvas_clicked_event(self, event):
+        print(f"Clicked at: ({event.x}, {event.y})")
 
 

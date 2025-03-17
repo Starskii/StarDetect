@@ -55,10 +55,12 @@ class MainView:
         if value >= 100:
             progress_bar_identifier.grid_forget()
 
-    def add_canvas_to_tab(self, tab_identifier: ttk.Frame) -> tk.Canvas:
+    def add_canvas_to_tab(self, tab_identifier: ttk.Frame, click_event_handler: Callable) -> tk.Canvas:
         new_canvas = tk.Canvas(tab_identifier, bg="blue", height=self.canvas_size_height, width=self.canvas_size_width)
-        new_canvas.grid(row=self.tab_row_counter[tab_identifier], columnspan=4, rowspan=2)
+        new_canvas.grid(row=self.tab_row_counter[tab_identifier], columnspan=4)
         self.tab_row_counter[tab_identifier] += 1
+
+        new_canvas.bind("<Button-1>", click_event_handler)
         return new_canvas
 
     def add_dropdown_to_tab(self,
