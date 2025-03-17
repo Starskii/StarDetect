@@ -37,6 +37,8 @@ class AnnotateController:
             ["Previous Image", "Next Image"],
             [self.prev_image_event, self.next_image_event])
 
+        self.canvas = self.main_view.add_canvas_to_tab(self.annotate_tab)
+
         # Add signal listeners
         self.profile_manager.create_state_change_listener(profile_manager.EventType.PROFILE_CHANGED,
                                                           self.clear_dataset_combobox)
