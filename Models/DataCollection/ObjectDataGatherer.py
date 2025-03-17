@@ -24,5 +24,5 @@ def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay
         optimized some way by either batching these together at the end or by using some producer consumer type 
         architecture so taking new images is not delayed by io processes.  
         """
-        dataset.annotated_images.append(AnnotatedImage(f'{directory_path}/{image_index}', image.width, image.height, []))
+        dataset.annotated_images.append(AnnotatedImage(f'{directory_path}/{image_index}.png', image.width, image.height, []))
     profile_manager.profile_change_event_handler()
