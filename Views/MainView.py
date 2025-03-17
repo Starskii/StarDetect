@@ -18,6 +18,9 @@ class MainView:
         # Keys are tab_identifiers and values are the int count of rows
         self.tab_row_counter = {}
 
+        self.canvas_size_width = 480
+        self.canvas_size_height = 270
+
     def create_new_tab(self, tab_title: str) -> ttk.Frame:
         new_tab = ttk.Frame(self.tab_container)
         self.tab_container.add(new_tab, text=f'{tab_title}')
@@ -53,7 +56,7 @@ class MainView:
             progress_bar_identifier.grid_forget()
 
     def add_canvas_to_tab(self, tab_identifier: ttk.Frame) -> tk.Canvas:
-        new_canvas = tk.Canvas(tab_identifier, bg="blue", height=270, width=480)
+        new_canvas = tk.Canvas(tab_identifier, bg="blue", height=self.canvas_size_height, width=self.canvas_size_width)
         new_canvas.grid(row=self.tab_row_counter[tab_identifier], columnspan=4, rowspan=2)
         self.tab_row_counter[tab_identifier] += 1
         return new_canvas
