@@ -145,7 +145,7 @@ class AnnotateController:
 
         # Open and resize the image
         img = Image.open(image_path)
-        img = img.resize((canvas_width, canvas_height), Image.Resampling.LANCZOS)
+        img = img.resize((canvas_width + 1, canvas_height + 1), Image.Resampling.LANCZOS)
 
         # Convert to a format tkinter can use
         img_tk = ImageTk.PhotoImage(img)

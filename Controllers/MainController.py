@@ -11,7 +11,7 @@ class MainController:
         # Initialize ProfileManager to manage data to and from disk
         self.profile_manager = ProfileManager()
         # Initialize View
-        self.main_view = MainView("StarDetect", 480, 540)
+        self.main_view = MainView("StarDetect", 700, 540)
 
         # Initialize controllers
         self.home_controller = HomeController(self.main_view, self.profile_manager)
