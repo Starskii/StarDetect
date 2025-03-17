@@ -1,1 +1,84 @@
-[]
+[
+    {
+        "profile_name": "a",
+        "class_list": [
+            {
+                "classification_name": "a",
+                "classification_id": 0,
+                "classification_color_rgb": "#49f894"
+            }
+        ],
+        "dataset_list": [
+            {
+                "dataset_name": "a",
+                "annotated_images": [
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/0",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/1",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/2",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/3",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/4",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/5",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/6",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/7",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/8",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    },
+                    {
+                        "path": "./PersistedData/ImageSets/a/a/9",
+                        "image_width_px": 2560,
+                        "image_height_px": 1440,
+                        "annotations": []
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "profile_name": "b",
+        "class_list": [],
+        "dataset_list": []
+    }
+]

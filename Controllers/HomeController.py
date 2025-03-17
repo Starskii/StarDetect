@@ -39,6 +39,7 @@ class HomeController:
 
     def profile_selected_event(self, event):
         self.profile_manager.set_active_profile(self.profile_combobox.current())
+        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.PROFILE_CHANGED)
 
     def update_profile_options(self):
         self.annotator.update_dataset_options()

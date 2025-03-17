@@ -37,14 +37,26 @@ class AnnotateController:
             ["Previous Image", "Next Image"],
             [self.prev_image_event, self.next_image_event])
 
+        # Add signal listeners
+        self.profile_manager.create_state_change_listener(profile_manager.EventType.PROFILE_CHANGED,
+                                                          self.clear_dataset_combobox)
+        self.profile_manager.create_state_change_listener(profile_manager.EventType.PROFILE_CHANGED,
+                                                          self.clear_class_combobox)
+        self.profile_manager.create_state_change_listener(profile_manager.EventType.PROFILE_CHANGED,
+                                                          self.clear_image_combobox)
+        self.profile_manager.create_state_change_listener(profile_manager.EventType.DATASET_CHANGED,
+                                                          self.clear_image_combobox)
+
     def dataset_selected_event(self, event):
         self.profile_manager.update_selected_dataset(str(self.dataset_combobox.get()))
 
     def class_selected_event(self, event):
-        pass
+        # alert profilemanager
+        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.CLASS_CHANGED)
 
     def image_selected_event(self, event):
-        pass
+        # alert profilemanager
+        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
 
     def next_image_event(self, event):
         pass
@@ -54,6 +66,7 @@ class AnnotateController:
 
     def clear_dataset_combobox(self):
         self.dataset_combobox.set("")
+        self.profile_manager.update_selected_dataset("")
 
     def clear_class_combobox(self):
         self.class_combobox.set("")

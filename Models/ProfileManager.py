@@ -90,11 +90,14 @@ class ProfileManager:
         image_name_list = []
         if self.active_profile is None:
             return image_name_list
+        if self.selected_dataset is None:
+            return image_name_list
         for image in self.selected_dataset.annotated_images:
             image_name_list.append(image.path.split("/")[-1])
         return image_name_list
 
     def update_selected_dataset(self, dataset_name: str) -> None:
+        self.selected_dataset = None
         for dataset in self.active_profile.dataset_list:
             if dataset.dataset_name == dataset_name:
                 self.selected_dataset = dataset
