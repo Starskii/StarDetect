@@ -60,13 +60,15 @@ class ProfileManager:
         center_y = ((first_point[1] + second_point[1]) / 2) / canvas_height
         width = abs(first_point[0] - second_point[0]) / canvas_width
         height = abs(first_point[1] - second_point[1]) / canvas_height
+        color = self.selected_class.classification_color_rgb
 
         new_annotation = Annotation(
             class_identifier=class_identifier,
             center_x=center_x,
             center_y=center_y,
             width=width,
-            height=height
+            height=height,
+            color=color
         )
 
         self.selected_image.annotations.append(new_annotation)

@@ -160,6 +160,7 @@ class AnnotateController:
 
     def undo_action_event(self):
         self.profile_manager.remove_last_annotation()
+        self.signal_image_changed()
 
     def update_class_options(self):
         options = self.profile_manager.get_class_option_strings()
@@ -197,6 +198,9 @@ class AnnotateController:
         self.canvas.create_image(0, 0, image=img_tk, anchor='nw')
         self.img_tk = img_tk
 
+        # Draw annotations
+        self.main_view.draw_annotations_on_canvas(self.canvas, self.profile_manager.selected_image.annotations)
+
     def signal_dataset_changed(self):
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.DATASET_CHANGED)
 
@@ -214,6 +218,7 @@ class AnnotateController:
             self.second_point = (event.x, event.y)
             self.profile_manager.create_new_annotation(self.first_point, self.second_point)
             self.cancel_action_event()
+            self.signal_image_changed()
 
 
 

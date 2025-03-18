@@ -9,3 +9,4 @@ class Annotation:
     center_y: float
     width: float
     height: float
+    color: str

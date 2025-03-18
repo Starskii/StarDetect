@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-from typing import Callable
+from typing import Callable, List
+from Models.DataClasses.Annotation import Annotation
 
 
 class MainView:
@@ -92,6 +93,15 @@ class MainView:
 
         self.tab_row_counter[tab_identifier] += 1
         return new_dropdown
+
+    def draw_annotations_on_canvas(self, canvas_identifier: tk.Canvas, annotation_list: List[Annotation]):
+        for annotation in annotation_list:
+            x0 = (annotation.center_x - annotation.width / 2) * self.canvas_size_width
+            y0 = (annotation.center_y - annotation.height / 2) * self.canvas_size_height
+            x1 = (annotation.center_x + annotation.width / 2) * self.canvas_size_width
+            y1 = (annotation.center_y + annotation.height / 2) * self.canvas_size_height
+
+            canvas_identifier.create_rectangle(x0, y0, x1, y1, outline=annotation.color, width=2)
 
     def start(self):
         self.root.mainloop()
