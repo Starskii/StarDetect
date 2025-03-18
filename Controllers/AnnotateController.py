@@ -216,7 +216,11 @@ class AnnotateController:
             self.first_point = (event.x, event.y)
         else:
             self.second_point = (event.x, event.y)
-            self.profile_manager.create_new_annotation(self.first_point, self.second_point)
+            self.profile_manager.create_new_annotation(
+                self.first_point,
+                self.second_point,
+                (self.main_view.canvas_size_width, self.main_view.canvas_size_height)
+            )
             self.cancel_action_event()
             self.signal_image_changed()
 

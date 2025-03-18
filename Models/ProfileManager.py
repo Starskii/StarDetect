@@ -49,12 +49,12 @@ class ProfileManager:
         self.active_profile.class_list.append(new_class)
         self.update_profile_json()
 
-    def create_new_annotation(self, first_point: (int, int), second_point: (int, int)):
+    def create_new_annotation(self, first_point: (int, int), second_point: (int, int), canvas_size: (int, int)):
         if self.selected_image is None:
             return
 
-        canvas_width = 480 # Problems will occur if this is changed here and not in MainView as well.
-        canvas_height = 270 # Problems will occur if this is changed here and not in MainView as well.
+        canvas_width = canvas_size[0]
+        canvas_height = canvas_size[1]
         class_identifier = self.selected_class.classification_id
         center_x = ((first_point[0] + second_point[0]) / 2) / canvas_width
         center_y = ((first_point[1] + second_point[1]) / 2) / canvas_height
