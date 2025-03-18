@@ -159,7 +159,7 @@ class AnnotateController:
         self.second_point = None
 
     def undo_action_event(self):
-        print("undo")
+        self.profile_manager.remove_last_annotation()
 
     def update_class_options(self):
         options = self.profile_manager.get_class_option_strings()
