@@ -6,6 +6,8 @@ from Models.DataClasses.Profile import Profile
 from dacite import from_dict
 from dataclasses import asdict
 from Models.DataClasses.Dataset import Dataset
+from Models.DataClasses.Classification import Classification
+from Models.DataClasses.AnnotatedImage import AnnotatedImage
 import os
 from typing import Optional
 import json
@@ -18,9 +20,11 @@ class ProfileManager:
         IMAGE_CHANGED = 3
 
     def __init__(self):
-        self.active_profile: Profile = None
-        self.profiles = []
+        self.active_profile: Optional[Profile] = None
+        self.profiles: List = []
         self.selected_dataset: Optional[Dataset] = None
+        self.selected_class: Optional[Classification] = None
+        self.selected_image: Optional[AnnotatedImage] = None
         self.event_change_listeners: Dict[ProfileManager.EventType, List[Callable[..., None]]] = {}
 
 # Create methods are called to create a new data object and store it in the profile obj which will be written to JSON.
@@ -101,6 +105,20 @@ class ProfileManager:
         for dataset in self.active_profile.dataset_list:
             if dataset.dataset_name == dataset_name:
                 self.selected_dataset = dataset
+
+    def update_selected_class(self, class_name: str) -> None:
+        self.selected_class = None
+        for classification in self.active_profile.class_list:
+            if classification == class_name:
+                self.selected_class = classification
+
+    def update_selected_image(self, image_index: Optional[int]) -> None:
+        self.selected_image = None
+        # Guard from None
+        if self.selected_dataset is None:
+            return
+        if image_index in range(len(self.selected_dataset.annotated_images)):
+            self.selected_image = self.selected_dataset.annotated_images[image_index]
 
     """
     Needed a way for Controllers to notify each other of state changes that impact them. 

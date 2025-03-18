@@ -11,6 +11,10 @@ import os
 
 class AnnotateController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
+        # When classes are selected
+        self.first_point = None
+        self.second_point = None
+
         self.profile_manager = profile_manager
         self.annotate_tab = main_view.create_new_tab("Annotate")
         self.main_view = main_view
@@ -79,41 +83,64 @@ class AnnotateController:
 
     def class_selected_event(self, event):
         # alert profilemanager
+        self.profile_manager.update_selected_class(str(self.class_combobox.get()))
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.CLASS_CHANGED)
 
     def image_selected_event(self, event):
         # alert profilemanager
+        self.profile_manager.update_selected_image(int(str(self.image_combobox.get()).split(".")[0]))
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
 
     def next_image_event(self):
         current_value = str(self.image_combobox.get())
+        image_index = None
+        # Guard against empty image list or None selected_dataset
+        if self.profile_manager.selected_dataset is None:
+            return
+        if len(self.profile_manager.selected_dataset.annotated_images) == 0:
+            return
         if current_value == '' or current_value is None:
             current_value = '0.png'
+            image_index = 0
             self.image_combobox.set(current_value)
         else:
-            next_index = (int(current_value.split('.')[0]) + 1) % len(self.profile_manager.get_image_option_strings())
-            self.image_combobox.set(f'{str(next_index)}.png')
+            image_index = (int(current_value.split('.')[0]) + 1) % len(self.profile_manager.get_image_option_strings())
+            self.image_combobox.set(f'{str(image_index)}.png')
+        self.profile_manager.update_selected_image(image_index)
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
 
     def prev_image_event(self):
         current_value = str(self.image_combobox.get())
+        image_index = None
+        # Guard against empty image list
+        if self.profile_manager.selected_dataset is None:
+            return
+        if len(self.profile_manager.selected_dataset.annotated_images) == 0:
+            return
         if current_value == '' or current_value is None:
             current_value = '0.png'
+            image_index = 0
             self.image_combobox.set(current_value)
         else:
-            next_index = (int(current_value.split('.')[0]) - 1) % len(self.profile_manager.get_image_option_strings())
-            self.image_combobox.set(f'{str(next_index)}.png')
+            image_index = (int(current_value.split('.')[0]) - 1) % len(self.profile_manager.get_image_option_strings())
+            self.image_combobox.set(f'{str(image_index)}.png')
+        self.profile_manager.update_selected_image(image_index)
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
 
     def clear_dataset_combobox(self):
         self.dataset_combobox.set("")
         self.profile_manager.update_selected_dataset("")
+        self.signal_dataset_changed()
 
     def clear_class_combobox(self):
         self.class_combobox.set("")
+        self.profile_manager.update_selected_class("")
+        self.signal_class_changed()
 
     def clear_image_combobox(self):
         self.image_combobox.set("")
+        self.profile_manager.update_selected_image(None)
+        self.signal_image_changed()
 
     def clear_canvas(self):
         self.canvas.delete("all")  # Removes all drawn elements from the canvas
@@ -128,7 +155,8 @@ class AnnotateController:
             class_color[1])
         
     def cancel_action_event(self):
-        print("cancel")
+        self.first_point = None
+        self.second_point = None
 
     def undo_action_event(self):
         print("undo")
@@ -149,9 +177,10 @@ class AnnotateController:
             self.image_combobox.config(values=options)
 
     def update_canvas_image_event(self):
-        image_name = str(self.image_combobox.get())
-        image_index = int(image_name.split('.')[0])
-        image_path = self.profile_manager.selected_dataset.annotated_images[image_index].path
+        # Guard against none image
+        if self.profile_manager.selected_image is None:
+            return
+        image_path = self.profile_manager.selected_image.path
 
         # Get canvas dimensions
         canvas_width = self.main_view.canvas_size_width
@@ -171,7 +200,18 @@ class AnnotateController:
     def signal_dataset_changed(self):
         self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.DATASET_CHANGED)
 
+    def signal_class_changed(self):
+        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.CLASS_CHANGED)
+
+    def signal_image_changed(self):
+        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
+
     def canvas_clicked_event(self, event):
         print(f"Clicked at: ({event.x}, {event.y})")
+        if self.first_point is None:
+            self.first_point = (event.x, event.y)
+        else:
+            self.second_point = (event.x, event.y)
+
 
 
