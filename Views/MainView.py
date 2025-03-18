@@ -18,8 +18,8 @@ class MainView:
         # Keys are tab_identifiers and values are the int count of rows
         self.tab_row_counter = {}
 
-        self.canvas_size_width = 480
-        self.canvas_size_height = 270
+        self.canvas_size_width = 480 # Before changing these values check the ProfileManager Create Annotation logic
+        self.canvas_size_height = 270 # Before changing these values check the ProfileManager Create Annotation logic
 
     def create_new_tab(self, tab_title: str) -> ttk.Frame:
         new_tab = ttk.Frame(self.tab_container)

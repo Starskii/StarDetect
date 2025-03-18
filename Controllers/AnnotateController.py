@@ -212,6 +212,8 @@ class AnnotateController:
             self.first_point = (event.x, event.y)
         else:
             self.second_point = (event.x, event.y)
+            self.profile_manager.create_new_annotation(self.first_point, self.second_point)
+            self.cancel_action_event()
 
 
 

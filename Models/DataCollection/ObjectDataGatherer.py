@@ -10,7 +10,7 @@ def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay
     directory_path = f'./PersistedData/ImageSets/{profile_manager.active_profile.profile_name}/{dataset_name}'
     directory_path = utilities.create_directory(directory_path)
     dataset_name = directory_path.split('/')[-1]
-    dataset = profile_manager.create_image_collection(dataset_name)
+    dataset = profile_manager.create_new_image_collection(dataset_name)
     for image_index in range(number_of_images):
         start = time.time()
         while start + image_capture_delay > time.time():
@@ -25,4 +25,4 @@ def gather_dataset(dataset_name: str, number_of_images: int, image_capture_delay
         architecture so taking new images is not delayed by io processes.  
         """
         dataset.annotated_images.append(AnnotatedImage(f'{directory_path}/{image_index}.png', image.width, image.height, []))
-    profile_manager.profile_change_event_handler()
+    profile_manager.update_profile_json()
