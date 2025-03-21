@@ -8,3 +8,4 @@ Utilities/__pycache__/*
 Views/__pycache__/*
 .idea/*
 PersistedData/*
+TrainingSets/*
