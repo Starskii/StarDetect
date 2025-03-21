@@ -25,6 +25,8 @@ class HomeController:
 
     def create_new_profile_event(self):
         profile_name = simpledialog.askstring(title="New Profile", prompt="Enter profile name:\t\t\n")
+        if profile_name is None:
+            return
         if len(profile_name) < 1:
             return
         self.profile_manager.create_new_profile(profile_name)

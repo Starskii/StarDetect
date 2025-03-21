@@ -1,2 +1,5 @@
 dacite==1.9.2
 pillow==10.4.0
+sv-ttk==2.6.0
+pywinstyles==1.8
+screeninfo==0.8.1

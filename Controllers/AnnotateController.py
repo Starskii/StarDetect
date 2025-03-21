@@ -195,7 +195,7 @@ class AnnotateController:
         img_tk = ImageTk.PhotoImage(img)
 
         # Display image on canvas
-        self.canvas.create_image(0, 0, image=img_tk, anchor='nw')
+        self.canvas.create_image(1, 1, image=img_tk, anchor='nw')
         self.img_tk = img_tk
 
         # Draw annotations
