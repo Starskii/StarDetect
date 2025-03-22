@@ -10,3 +10,5 @@ Views/__pycache__/*
 PersistedData/*
 TrainingSets/*
 yolo11n.pt
+temp_annotated.png
+temp_screenshot.png

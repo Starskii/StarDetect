@@ -138,8 +138,20 @@ class TrainController:
 
     def train_button_event(self):
         print(self.profile_manager.selected_training_set)
+
         model = YOLO('yolo11n.pt')
-        results = model.train(data=f'{self.profile_manager.selected_training_set.training_set_path}/data.yaml', epochs=int(self.entry_number_of_epoches.get()), imgsz=640)
+
+        # Define the custom save directory
+        save_dir = f'{self.profile_manager.selected_training_set.training_set_path}/trained_models'
+
+        # Train the model and specify the project directory
+        results = model.train(
+            data=f'{self.profile_manager.selected_training_set.training_set_path}/data.yaml',
+            epochs=int(self.entry_number_of_epoches.get()),
+            imgsz=640,
+            project=save_dir,  # Specify the directory to save the trained model
+            name="yolo_model"  # Name of the experiment
+        )
 
 
 
