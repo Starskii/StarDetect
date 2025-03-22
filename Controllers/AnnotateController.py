@@ -84,12 +84,12 @@ class AnnotateController:
     def class_selected_event(self, event):
         # alert profilemanager
         self.profile_manager.update_selected_class(str(self.class_combobox.get()))
-        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.CLASS_CHANGED)
+        self.signal_class_changed()
 
     def image_selected_event(self, event):
         # alert profilemanager
         self.profile_manager.update_selected_image(int(str(self.image_combobox.get()).split(".")[0]))
-        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
+        self.signal_image_changed()
 
     def next_image_event(self):
         current_value = str(self.image_combobox.get())
@@ -107,7 +107,7 @@ class AnnotateController:
             image_index = (int(current_value.split('.')[0]) + 1) % len(self.profile_manager.get_image_option_strings())
             self.image_combobox.set(f'{str(image_index)}.png')
         self.profile_manager.update_selected_image(image_index)
-        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
+        self.signal_image_changed()
 
     def prev_image_event(self):
         current_value = str(self.image_combobox.get())
@@ -125,7 +125,7 @@ class AnnotateController:
             image_index = (int(current_value.split('.')[0]) - 1) % len(self.profile_manager.get_image_option_strings())
             self.image_combobox.set(f'{str(image_index)}.png')
         self.profile_manager.update_selected_image(image_index)
-        self.profile_manager.signal_state_change_listener(self.profile_manager.EventType.IMAGE_CHANGED)
+        self.signal_image_changed()
 
     def clear_dataset_combobox(self):
         self.dataset_combobox.set("")

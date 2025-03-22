@@ -9,3 +9,4 @@ Views/__pycache__/*
 .idea/*
 PersistedData/*
 TrainingSets/*
+yolo11n.pt

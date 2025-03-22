@@ -9,6 +9,7 @@ from Models.DataClasses.Dataset import Dataset
 from Models.DataClasses.Classification import Classification
 from Models.DataClasses.AnnotatedImage import AnnotatedImage
 from Models.DataClasses.Annotation import Annotation
+from Models.DataClasses.TrainingSet import TrainingSet
 import os
 from typing import Optional
 import json
@@ -19,6 +20,7 @@ class ProfileManager:
         DATASET_CHANGED = 1
         CLASS_CHANGED = 2
         IMAGE_CHANGED = 3
+        TRAINING_SET_CHANGED = 4
 
     def __init__(self):
         self.active_profile: Optional[Profile] = None
@@ -26,12 +28,13 @@ class ProfileManager:
         self.selected_dataset: Optional[Dataset] = None
         self.selected_class: Optional[Classification] = None
         self.selected_image: Optional[AnnotatedImage] = None
+        self.selected_training_set: Optional[TrainingSet] = None
         self.event_change_listeners: Dict[ProfileManager.EventType, List[Callable[..., None]]] = {}
 
 # Create methods are called to create a new data object and store it in the profile obj which will be written to JSON.
 # Create methods call the profile_change_event_handler() to store the updated profile object to persisted JSON file.
     def create_new_profile(self, profile_name) -> None:
-        new_profile = Profile(profile_name, [], [])
+        new_profile = Profile(profile_name, [], [], [])
         self.update_profiles()
         self.profiles.append(new_profile)
         self.update_profile_json()
@@ -72,6 +75,18 @@ class ProfileManager:
         )
 
         self.selected_image.annotations.append(new_annotation)
+        self.update_profile_json()
+
+    def create_new_training_set(self, name: str, path: str, number_of_images_training: int, number_of_images_validation: int, validation_split_percentage: float):
+        new_training_set = TrainingSet(
+            training_set_name=name,
+            training_set_path=path,
+            number_of_images_training=number_of_images_training,
+            number_of_images_validation=number_of_images_validation,
+            validation_split_percentage=validation_split_percentage
+        )
+
+        self.active_profile.training_set_list.append(new_training_set)
         self.update_profile_json()
 
     def update_profiles(self) -> None:
@@ -126,6 +141,14 @@ class ProfileManager:
             image_name_list.append(image.path.split("/")[-1])
         return image_name_list
 
+    def get_training_set_option_strings(self) -> [str]:
+        training_set_option_strings = []
+        if self.active_profile is None:
+            return training_set_option_strings
+        for training_set in self.active_profile.training_set_list:
+            training_set_option_strings.append(training_set.training_set_name)
+        return training_set_option_strings
+
     def update_selected_dataset(self, dataset_name: str) -> None:
         self.selected_dataset = None
         for dataset in self.active_profile.dataset_list:
@@ -145,6 +168,15 @@ class ProfileManager:
             return
         if image_index in range(len(self.selected_dataset.annotated_images)):
             self.selected_image = self.selected_dataset.annotated_images[image_index]
+
+    def update_selected_training_set(self, training_set_name: Optional[str]) -> None:
+        self.selected_training_set = None
+        # Guard from None
+        if self.active_profile is None:
+            return
+        for training_set in self.active_profile.training_set_list:
+            if training_set.training_set_name == training_set_name:
+                self.selected_training_set = training_set
 
     def remove_last_annotation(self):
         if self.selected_image is None:
