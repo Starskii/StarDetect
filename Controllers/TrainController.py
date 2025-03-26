@@ -9,11 +9,13 @@ import yaml
 from typing import List, Tuple, Optional
 from Models.DataClasses.AnnotatedImage import AnnotatedImage
 import shutil
-from ultralytics import YOLO
+from ultralytics import YOLO, SETTINGS
 
 
 class TrainController:
     def __init__(self, main_view: MainView, profile_manager: ProfileManager):
+        # Override settings.json
+        SETTINGS.defaults['datasets_dir'] = os.getcwd()
         self.train_tab = main_view.create_new_tab("Train")
         self.profile_manager = profile_manager
         self.main_view = main_view
